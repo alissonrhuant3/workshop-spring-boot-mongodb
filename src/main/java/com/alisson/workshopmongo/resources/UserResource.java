@@ -1,5 +1,6 @@
 package com.alisson.workshopmongo.resources;
 
+import com.alisson.workshopmongo.domain.Post;
 import com.alisson.workshopmongo.domain.User;
 import com.alisson.workshopmongo.dto.UserDTO;
 import com.alisson.workshopmongo.services.UserService;
@@ -54,5 +55,11 @@ public class UserResource {
         obj.setId(id);
         obj = service.update(obj);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 }
